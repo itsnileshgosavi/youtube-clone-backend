@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import connectDB from "./config/db.js";
 import morgan from "morgan";
 import router from "./routes/routes.js";
+import cookieParser from "cookie-parser";
 
 dotenv.config(); //for environement variables
 
@@ -15,7 +16,8 @@ connectDB();
 //middlewares
 app.use(cors());
 app.use(express.json()); //to accept json data
-app.use(morgan("tiny"));
+app.use(morgan("tiny")); //for logging
+app.use(cookieParser()); //for cookies
 
 //routes
 app.get("/", (req, res) => {
