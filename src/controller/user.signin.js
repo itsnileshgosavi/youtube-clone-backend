@@ -9,11 +9,11 @@ export const signin = async (req, res) => {
         if (!user) {
             return res
                 .status(404)
-                .json({ error: "User with this email does not exist" });
+                .json({ message: "User with this email does not exist", success: false });
         }
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) {
-            return res.status(400).json({ error: "Invalid credentials" });
+            return res.status(401).json({ message: "Email or password is incorrect", success: false });
         }
         //creating a token
         const token = jwt.sign({ _id: user._id, email: user.email, firstName: user.firstName, lastName: user.lastName }, process.env.JWT_SECRET, {

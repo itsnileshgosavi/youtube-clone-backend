@@ -17,6 +17,13 @@ export const signup = async (req, res) => {
       user,
     });
   } catch (error) {
+    if (error.code === 11000) {
+      return res.status(400).json({
+        success: false,
+        message: "User already exists",
+        error,
+      });
+    }
     res.status(500).json({
       message: "Internal server error",
       success: false,
