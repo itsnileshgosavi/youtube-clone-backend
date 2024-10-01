@@ -23,6 +23,10 @@ export const signin = async (req, res) => {
         res.cookie("authtoken", token, {
             expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
             httpOnly: false, //allowing the accessing from js in order to use the token payload
+            sameSite: "lax",
+            secure: false,
+            path: "/",
+            maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days 
         });
         
         res.status(200).json({

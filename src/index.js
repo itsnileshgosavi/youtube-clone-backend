@@ -14,10 +14,11 @@ const app = express(); // express app
 connectDB();
 
 //middlewares
-app.use(cors());
+app.use(cookieParser()); //for cookies
 app.use(express.json()); //to accept json data
 app.use(morgan("tiny")); //for logging
-app.use(cookieParser()); //for cookies
+app.use(cors( { origin: "http://localhost:5173", credentials: true } ));
+
 
 //routes
 app.get("/", (req, res) => {
