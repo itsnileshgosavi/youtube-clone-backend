@@ -19,10 +19,11 @@ const channelSchema = new Schema(
     },
     description: {
       type: String,
-      required: true,
+      default: "",
     },
     channelBanner: {
       type: String,
+      default: "",
     },
     subscribers: {
       type: Number,

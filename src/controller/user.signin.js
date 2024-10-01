@@ -1,6 +1,7 @@
 import User from "../model/user.js";
 import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
+import Channel from "../model/channel.js";
 
 export const signin = async (req, res) => {
     try {
@@ -15,8 +16,9 @@ export const signin = async (req, res) => {
         if (!isMatch) {
             return res.status(401).json({ message: "Email or password is incorrect", success: false });
         }
+        const channel = await Channel.findOne({ owner: user._id });
         //creating a token
-        const token = jwt.sign({ _id: user._id, email: user.email, firstName: user.firstName, lastName: user.lastName }, process.env.JWT_SECRET, {
+        const token = jwt.sign({ _id: user._id, email: user.email, firstName: user.firstName, lastName: user.lastName, channels: user.channels, channel }, process.env.JWT_SECRET, {
             expiresIn: "7d",
         });
         //storing token in cookie
