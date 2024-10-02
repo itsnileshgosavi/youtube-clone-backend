@@ -1,33 +1,8 @@
 import mongoose from 'mongoose';
 const Schema = mongoose.Schema;
 
-const commentSchema = new Schema({
-  commentId: {
-    type: String,
-    required: true,
-    unique: true,
-  },
-  userId: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',  // Reference to the users collection
-    required: true,
-  },
-  text: {
-    type: String,
-    required: true,
-  },
-  timestamp: {
-    type: Date,
-    required: true,
-  }
-});
 
 const videoSchema = new Schema({
-  videoId: {
-    type: String,
-    required: true,
-    unique: true,
-  },
   title: {
     type: String,
     required: true,
@@ -40,16 +15,20 @@ const videoSchema = new Schema({
     type: String,
     required: true,
   },
-  channelId: {
-    type: Schema.Types.ObjectId,
-    ref: 'Channel',  // Reference to the channels collection
-    required: true,
-  },
-  uploader: {
-    type: Schema.Types.ObjectId,
-    ref: 'User',  // Reference to the users collection
-    required: true,
-  },
+  channel:{
+    _id:{
+      type: Schema.Types.ObjectId,
+      ref: 'Channel',  // Reference to the channels collection
+      required: true,
+    },
+    name: {
+      type: String,
+      required: true,
+    },
+    avatar: {
+      type: String,
+    }
+  }, 
   views: {
     type: Number,
     default: 0,
@@ -58,15 +37,33 @@ const videoSchema = new Schema({
     type: Number,
     default: 0,
   },
+  likedBy: {
+    type: [Schema.Types.ObjectId],
+    ref: 'User',
+    default: [],
+  },
   dislikes: {
     type: Number,
     default: 0,
   },
-  uploadDate: {
+  dislikedBy: {
+    type: [Schema.Types.ObjectId],
+    ref: 'User',
+    default: [],
+  },
+  shares: {
+    type: Number,
+    default: 0,
+  },
+  assetUrl: {
+    type: String,
+    default: '',
+  },
+  uploadedAt: {
     type: Date,
+    default: Date.now,
     required: true,
   },
-  comments: [commentSchema],  // Array of comment objects
 }, { timestamps: true });
 
 const Video = mongoose.model('Video', videoSchema);

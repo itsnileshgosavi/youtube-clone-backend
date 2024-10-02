@@ -29,6 +29,12 @@ const channelSchema = new Schema(
       type: Number,
       default: 0,
     },
+    subscribedBy: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User", // Reference to the users collection
+      }
+    ],
     videos: [
       {
         type: String,
