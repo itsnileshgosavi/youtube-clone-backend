@@ -18,6 +18,11 @@ import { undoDislike } from "../controller/dislike.undo.js";
 import { createSubscription } from "../controller/subscribe.create.js";
 import { undoSubscription } from "../controller/subscribe.undo.js";
 import { getComments } from "../controller/comments.get.js";
+import { uploadVideo } from "../controller/video.upload.js";
+import { getChannelById } from "../controller/channel.getbyid.js";
+import { getVideosByChannel } from "../controller/videos.channel.get.js";
+import { deleteVideo } from "../controller/video.delete.js";
+
 const router = Router();
 
 //user routes
@@ -29,11 +34,13 @@ router.get("/user",tokenAuthenticator, getUser ); //get updated data of logged i
 router.post("/channel/create", tokenAuthenticator, createChannel); //create channel
 router.get("/channel/:handle", getChannel); //get channel by handle
 router.get("/channel",tokenAuthenticator, getChannelByUser); //get channel of signed in user
-
+router.get("/channelbyid/:id", getChannelById); //get channel by id
 //video routes
-router.post("/video/upload", ); //upload video
+router.post("/video/upload", tokenAuthenticator, uploadVideo); //upload video
 router.get("/video/:videoId", getVideoById); //get video
 router.get("/videos", getVideos); //get all videos
+router.get("/videos/channel/:channelId", getVideosByChannel); //get video by channel id
+router.delete("/video/delete/:videoId",tokenAuthenticator, deleteVideo ); //remove video
 
 //comment routes
 router.post("/comment/create/:videoId",tokenAuthenticator, createComment); //create comment

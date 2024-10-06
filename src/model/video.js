@@ -15,6 +15,11 @@ const videoSchema = new Schema({
     type: String,
     required: true,
   },
+  category: {
+    type: String,
+    required: true,
+    enum: ["music", "gaming", "news", "sports", "technology", "education", "entertainment","comedy", "other"],
+  },
   channel:{
     _id:{
       type: Schema.Types.ObjectId,
