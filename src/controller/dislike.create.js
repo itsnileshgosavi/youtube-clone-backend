@@ -11,7 +11,11 @@ export const createDislike = async (req, res) => {
         if (video.dislikedBy.includes(user._id)) {
             return res.status(400).json({ success: false, message: "Already disliked" });
         }
-        video.dislikedBy.push({ user: user._id });
+        if (video.likedBy.includes(user._id)) {
+            video.likedBy = video.likedBy.filter((like) => like.toString() !== user._id.toString());
+            video.likes -= 1;
+        }
+        video.dislikedBy.push( user._id );
         video.dislikes += 1;
         await video.save();
         res.status(201).json({ success: true, message: "Disliked successfully", video });

@@ -33,7 +33,7 @@ const channelSchema = new Schema(
       {
         type: Schema.Types.ObjectId,
         ref: "User", // Reference to the users collection
-      }
+      },
     ],
     videos: [
       {

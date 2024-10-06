@@ -22,6 +22,7 @@ import { uploadVideo } from "../controller/video.upload.js";
 import { getChannelById } from "../controller/channel.getbyid.js";
 import { getVideosByChannel } from "../controller/videos.channel.get.js";
 import { deleteVideo } from "../controller/video.delete.js";
+import { editVideo } from "../controller/video.edit.js";
 
 const router = Router();
 
@@ -35,12 +36,14 @@ router.post("/channel/create", tokenAuthenticator, createChannel); //create chan
 router.get("/channel/:handle", getChannel); //get channel by handle
 router.get("/channel",tokenAuthenticator, getChannelByUser); //get channel of signed in user
 router.get("/channelbyid/:id", getChannelById); //get channel by id
+
 //video routes
 router.post("/video/upload", tokenAuthenticator, uploadVideo); //upload video
 router.get("/video/:videoId", getVideoById); //get video
 router.get("/videos", getVideos); //get all videos
 router.get("/videos/channel/:channelId", getVideosByChannel); //get video by channel id
 router.delete("/video/delete/:videoId",tokenAuthenticator, deleteVideo ); //remove video
+router.put("/video/edit/:videoId",tokenAuthenticator, editVideo); //edit video
 
 //comment routes
 router.post("/comment/create/:videoId",tokenAuthenticator, createComment); //create comment
@@ -49,13 +52,13 @@ router.put("/comment/edit/:videoId",tokenAuthenticator, editComment); //edit com
 router.get("/comments/:videoId", getComments); //get all comments of a video
 
 //like routes
-router.post("/like/create/:videoId",tokenAuthenticator, createLike ); //create like
-router.put("/like/remove/:videoId",tokenAuthenticator, undoLike); //remove like
-router.post("/dislike/create/:videoId",tokenAuthenticator, createDislike); //create dislike
-router.put("/dislike/remove/:videoId",tokenAuthenticator, undoDislike ); //remove dislike
+router.post("/video/like/:videoId",tokenAuthenticator, createLike ); //create like
+router.post("/video/unlike/:videoId",tokenAuthenticator, undoLike); //remove like
+router.post("/video/dislike/:videoId",tokenAuthenticator, createDislike); //create dislike
+router.post("/video/undodislike/:videoId",tokenAuthenticator, undoDislike ); //remove dislike
 
 //subscription routes
-router.post("/subscription/create/:channelId",tokenAuthenticator, createSubscription ); //create subscription
-router.post("/subscription/remove/:channelId",tokenAuthenticator, undoSubscription); //remove subscription
+router.post("/channel/subscribe/:channelId",tokenAuthenticator, createSubscription ); //create subscription
+router.post("/channel/unsubscribe/:channelId",tokenAuthenticator, undoSubscription); //remove subscription
 
 export default router;

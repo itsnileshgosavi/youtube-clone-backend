@@ -8,6 +8,8 @@ export const undoLike = async (req, res) => {
         if (!video) {
             return res.status(404).json({ success: false, message: "Video not found" });
         }
+       
+        
         video.likedBy = video.likedBy.filter((like) => like.toString() !== user._id.toString());
         video.likes -= 1;
         await video.save();
