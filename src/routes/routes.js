@@ -23,6 +23,10 @@ import { getChannelById } from "../controller/channel.getbyid.js";
 import { getVideosByChannel } from "../controller/videos.channel.get.js";
 import { deleteVideo } from "../controller/video.delete.js";
 import { editVideo } from "../controller/video.edit.js";
+import upload from "../config/multerConfig,.js";
+import { uploadAvatar } from "../controller/uploadAvatar.js";
+import { uploadBanner } from "../controller/uploadBanner.js";
+import { increamentViewCount } from "../controller/increamentViewCount.js";
 
 const router = Router();
 
@@ -32,7 +36,7 @@ router.post("/user/signin", signin ); //login
 router.get("/user",tokenAuthenticator, getUser ); //get updated data of logged in user
 
 //channel routes
-router.post("/channel/create", tokenAuthenticator, createChannel); //create channel
+router.post("/channel/create", tokenAuthenticator, upload.single('avatar'), createChannel); //create channel
 router.get("/channel/:handle", getChannel); //get channel by handle
 router.get("/channel",tokenAuthenticator, getChannelByUser); //get channel of signed in user
 router.get("/channelbyid/:id", getChannelById); //get channel by id
@@ -60,5 +64,12 @@ router.post("/video/undodislike/:videoId",tokenAuthenticator, undoDislike ); //r
 //subscription routes
 router.post("/channel/subscribe/:channelId",tokenAuthenticator, createSubscription ); //create subscription
 router.post("/channel/unsubscribe/:channelId",tokenAuthenticator, undoSubscription); //remove subscription
+
+//upload image
+router.post("/upload/avatar", upload.single('avatar'), uploadAvatar);//upload avatar to cloudinary
+router.post("/upload/banner/:channelId", tokenAuthenticator, upload.single('banner'), uploadBanner); //upload banner to cloudinary
+
+//increase view count
+router.get("/video/view/:videoId", increamentViewCount);//increase view count
 
 export default router;
