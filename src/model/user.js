@@ -29,7 +29,9 @@ const userSchema = new mongoose.Schema({
   },
   avatar: {
     type: String,
-    default: "",
+    default: function () {
+      return `https://api.dicebear.com/5.x/initials/svg?seed=${this.firstName}+${this.lastName}`;
+    },
   },
   channels: [
     {
@@ -40,6 +42,8 @@ const userSchema = new mongoose.Schema({
       handle: {
         type: String,
       },
+      name: String,
+      avatar: String,
     },
   ],
   createdAt: {

@@ -2,9 +2,9 @@ import Video from "../model/video.js";
 
 export const createLike = async (req, res) => {
     try {
-        const { videoId } = req.params;
-        const user = req.user;
-        const video = await Video.findById(videoId);
+        const { videoId } = req.params;//getting the video id from the url params
+        const user = req.user;//getting the user from the cookie
+        const video = await Video.findById(videoId);//searching the video in the database
         if (!video) {
             return res.status(404).json({ success: false, message: "Video not found" });
         }
@@ -13,12 +13,16 @@ export const createLike = async (req, res) => {
             video.dislikedBy = video.dislikedBy.filter((dislike) => dislike.toString() !== user._id.toString());
             video.dislikes -= 1;
         }
+
+        //checking if already liked
         if(video.likedBy.includes(user._id)){
             return res.status(400).json({ success: false, message: "Already liked" });
         }
+
+        //add like
         video.likedBy.push(user._id);
         video.likes += 1;   
-        await video.save();
+        await video.save();//saving the updated video
         res.status(201).json({ success: true, message: "Liked successfully", video });
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });

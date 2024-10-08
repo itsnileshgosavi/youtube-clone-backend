@@ -5,16 +5,17 @@ import Channel from "../model/channel.js";
 
 export const signin = async (req, res) => {
     try {
-        const { email, password } = req.body;
-        const user = await User.findOne({ email });
+        const { email, password } = req.body;//getting the email and password from the request body
+        const user = await User.findOne({ email }); //finding the user in the database by email
+        //sending 404 if the user is not found
         if (!user) {
             return res
                 .status(404)
                 .json({ message: "User with this email does not exist", success: false });
         }
-        const isMatch = await bcrypt.compare(password, user.password);
+        const isMatch = await bcrypt.compare(password, user.password); //comparing the password from the request body with the hashed password in the database
         if (!isMatch) {
-            return res.status(401).json({ message: "Email or password is incorrect", success: false });
+            return res.status(401).json({ message: "Email or password is incorrect", success: false }); //sending 401 if the password is incorrect
         }
         const channel = await Channel.findOne({ owner: user._id });
         //creating a token
@@ -30,7 +31,7 @@ export const signin = async (req, res) => {
             path: "/",
             maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days 
         });
-        
+        //sending success response
         res.status(200).json({
             success: true,
             message: "User logged in successfully",

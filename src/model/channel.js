@@ -12,6 +12,12 @@ const channelSchema = new Schema(
       type: String,
       required: true,
     },
+    avatar: {
+      type: String,
+      default: function () {
+        return `https://api.dicebear.com/5.x/initials/svg?seed=${this.channelName}`;
+      },
+    },
     owner: {
       type: Schema.Types.ObjectId,
       ref: "User", // Reference to the users collection
