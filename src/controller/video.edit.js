@@ -2,7 +2,7 @@ import Video from "../model/video.js";
 
 export const editVideo = async (req, res) => {
     try {
-        const { title, description, thumbnailUrl, assetUrl, category } = req.body; //getting the video details from the request body
+        const { title, description, thumbnailUrl, category } = req.body; //getting the video details from the request body
         const { user } = req; //getting the user from the cookie
         const { videoId } = req.params;
         const video = await Video.findById(videoId); //searching the video in the database
@@ -13,7 +13,6 @@ export const editVideo = async (req, res) => {
         video.title = title; 
         video.description = description;
         video.thumbnailUrl = thumbnailUrl;
-        video.assetUrl = assetUrl;
         video.category = category;
 
         await video.save(); //saving the updated video

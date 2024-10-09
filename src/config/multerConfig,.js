@@ -7,7 +7,7 @@ const storage = new CloudinaryStorage({
     cloudinary,
     params: {
       folder: 'channelAvatars', // Folder where images will be stored on Cloudinary
-      allowed_formats: ['jpeg', 'png', 'jpg'], // Allowed file formats
+      allowed_formats: ['jpeg', 'png', 'jpg', 'webp', 'gif'], // Allowed file formats
     },
   });
   
