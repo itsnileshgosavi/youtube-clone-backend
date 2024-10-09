@@ -1,5 +1,10 @@
 # Youtube Clone - Backend
 
+[Repository](https://github.com/itsnileshgosavi/youtube-clone-backend)
+[Deployment](https://youtube-backend-eight.vercel.app/)
+
+## Description
+
 This is the backend for youtube clone project.
 
 ## Installation
