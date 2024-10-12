@@ -27,7 +27,6 @@ export const signin = async (req, res) => {
             return res.status(500).json({ message: "Error occurred while generating token", success: false });
         }
         res.cookie("authtoken", token, {
-            expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
             httpOnly: false, //allowing the accessing from js in order to use the token payload
             sameSite: "none",
             domain: process.env.NODE_ENV === "production" ? ".vercel.app" : "localhost",
