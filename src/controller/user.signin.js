@@ -29,11 +29,11 @@ export const signin = async (req, res) => {
         res.cookie("authtoken", token, {
             expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
             httpOnly: false, //allowing the accessing from js in order to use the token payload
-            sameSite: "lax",
+            sameSite: "none",
             domain: process.env.NODE_ENV === "production" ? ".vercel.app" : "localhost",
-            secure: false,
+            secure: true,
             path: "/",
-            maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days 
+            maxAge: 86400000, // 7 days
             credentials: true,
         });
         //sending success response
