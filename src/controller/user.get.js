@@ -7,7 +7,7 @@ export const getUser = async (req, res) => {
         if (!user) {
             return res.status(404).json({ success: false, message: "User not found" }); //if the user is not found sending 404
         }
-        res.status(200).json({ success: true, user }); //sending the user
+        res.status(200).json({ success: true, user:{...user, password: undefined} }); //sending the user
     } catch (error) {
         res.status(500).json({ success: false, message: error.message });
     }
