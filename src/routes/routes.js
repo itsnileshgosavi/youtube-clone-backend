@@ -35,7 +35,7 @@ const router = Router();
 router.post("/user/signup", signup); //signup
 router.post("/user/signin", signin ); //login
 router.get("/user",tokenAuthenticator, getUser ); //get updated data of logged in user
-router.post("/user/logout", tokenAuthenticator, signout);
+router.post("/user/logout", signout);
 
 //channel routes
 router.post("/channel/create", tokenAuthenticator, upload.single('avatar'), createChannel); //create channel
