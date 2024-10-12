@@ -27,6 +27,7 @@ import upload from "../config/multerConfig,.js";
 import { uploadAvatar } from "../controller/uploadAvatar.js";
 import { uploadBanner } from "../controller/uploadBanner.js";
 import { increamentViewCount } from "../controller/increamentViewCount.js";
+import { signout } from "../controller/user.signout.js";
 
 const router = Router();
 
@@ -34,6 +35,7 @@ const router = Router();
 router.post("/user/signup", signup); //signup
 router.post("/user/signin", signin ); //login
 router.get("/user",tokenAuthenticator, getUser ); //get updated data of logged in user
+router.post("/user/logout", tokenAuthenticator, signout);
 
 //channel routes
 router.post("/channel/create", tokenAuthenticator, upload.single('avatar'), createChannel); //create channel
