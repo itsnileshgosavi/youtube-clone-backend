@@ -27,6 +27,7 @@ export const signin = async (req, res) => {
             expires: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000), // 7 days
             httpOnly: false, //allowing the accessing from js in order to use the token payload
             sameSite: "lax",
+            domain: process.env.NODE_ENV === "production" ? ".vercel.app" : "localhost",
             secure: false,
             path: "/",
             maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days 
