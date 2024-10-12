@@ -31,6 +31,7 @@ export const signin = async (req, res) => {
             credentials: true,
             secure: true,
             maxAge: 7 * 24 * 60 * 60 * 1000,
+            httpOnly:false,
         });
         //sending success response
         res.status(200).json({
