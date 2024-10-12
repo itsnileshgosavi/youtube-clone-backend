@@ -29,7 +29,7 @@ export const signin = async (req, res) => {
         res.cookie("authtoken", token, {
             sameSite: "none",
             credentials: true,
-            domain:".vercel.app",
+            secure: true,
         });
         //sending success response
         res.status(200).json({
