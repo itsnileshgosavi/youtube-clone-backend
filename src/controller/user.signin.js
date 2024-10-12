@@ -27,8 +27,9 @@ export const signin = async (req, res) => {
             return res.status(500).json({ message: "Error occurred while generating token", success: false });
         }
         res.cookie("authtoken", token, {
-           
+            sameSite: "none",
             credentials: true,
+            domain:".vercel.app",
         });
         //sending success response
         res.status(200).json({
