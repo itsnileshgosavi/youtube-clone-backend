@@ -27,8 +27,7 @@ export const signin = async (req, res) => {
             return res.status(500).json({ message: "Error occurred while generating token", success: false });
         }
         res.cookie("authtoken", token, {
-            path: "/",
-            maxAge: 86400000, // 7 days
+           
             credentials: true,
         });
         //sending success response
