@@ -18,7 +18,7 @@ app.use(cookieParser()); //for cookies
 app.use(express.urlencoded({ extended: true })); //to accept url encoded data
 app.use(express.json()); //to accept json data
 app.use(morgan("tiny")); //for logging
-app.use(cors( { origin: "http://localhost:5173", credentials: true } ));
+app.use(cors( { origin: "https://youtube-clone-frontend-seven.vercel.app", credentials: true } ));
 
 
 //routes
